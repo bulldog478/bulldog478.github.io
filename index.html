@@ -171,6 +171,16 @@
         </li>
       
         
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
@@ -207,6 +217,103 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/05/15/Let-ES2015-A/" itemprop="url">
+                  大家一起来ES2015(一) Class
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-05-15T12:30:23+08:00" content="2016-05-15">
+              2016-05-15
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>为了给Javascript引入<code>OO</code>的概念，各路大神也在不断努力，ES5的<code>Object.create</code>，到ES6和TypeScript的<code>Class</code>，可见引入OO是非常有必要的。那么我们就来看看Javscript中的OO。</p>
+<h2 id="ES5中的继承"><a href="#ES5中的继承" class="headerlink" title="ES5中的继承"></a>ES5中的继承</h2><p>ES5主要通过<code>Object.create</code>创建需要继承的原型对象的一个副本，并通过prototype指向该副本实现的。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Shape - superClass</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Shape</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.x = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">this</span>.y = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Shape.prototype.move = <span class="function"><span class="keyword">function</span>(<span class="params">x,y</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.x += x;</span><br><span class="line">    <span class="keyword">this</span>.y += y;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Shape moved."</span>)</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Rectangle - subClass</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Rectangle</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    Shape.apply(<span class="keyword">this</span>,<span class="built_in">arguments</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//通过Object.create可以以指定原型对象为副本创造</span></span><br><span class="line"><span class="comment">//另外一个原型对象</span></span><br><span class="line">Rectangle.prototype = <span class="built_in">Object</span>.create(Shape.prototype);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> rect = <span class="keyword">new</span> Rectangle();</span><br><span class="line"><span class="built_in">console</span>.log(Rectangle.prototype === Shape.prototype); <span class="comment">//false, Rectangle原型对象是Shape圆形对象的一个副本</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(rect <span class="keyword">instanceof</span> Rectangle); <span class="comment">//true</span></span><br><span class="line"><span class="built_in">console</span>.log(rect <span class="keyword">instanceof</span> Shape); <span class="comment">//true</span></span><br></pre></td></tr></table></figure></p>
+<p><img src="http://7xslhu.com1.z0.glb.clouddn.com/Object.create.png" alt=""></p>
+<h2 id="ES6的继承"><a href="#ES6的继承" class="headerlink" title="ES6的继承"></a>ES6的继承</h2><p>ES5所实现的集成主要依赖于<code>prototype</code>，通过prototype我们可以清晰的理解继承的原理，但上述写法还是过于啰嗦，不够OO，那么ES6的Class正是因此而来，我们重写上面的例子。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//ES6</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Shape</span></span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>()&#123;</span><br><span class="line">        <span class="keyword">this</span>.x = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">this</span>.y = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    move(x,y)&#123;</span><br><span class="line">        <span class="keyword">this</span>.x += x;</span><br><span class="line">        <span class="keyword">this</span>.y += y;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'Shape moved'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Rectangle</span> <span class="keyword">extends</span> <span class="title">Shape</span></span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>()&#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> rect = <span class="keyword">new</span> Rectangle();</span><br><span class="line">rect.move(<span class="number">2</span>,<span class="number">3</span>); <span class="comment">//Shape moved</span></span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
       
 
@@ -358,7 +465,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">1</span>
+              <span class="site-state-item-count">2</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -366,12 +473,30 @@
           
 
           
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
 
         </nav>
 
         
 
         <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/bulldog478" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
           
         </div>
 
