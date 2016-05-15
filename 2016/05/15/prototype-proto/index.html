@@ -80,26 +80,17 @@
 
 
 
-<meta name="description" content="随着Web前端的日新月异，前端ers也不断追求着新技术，然而当我准备应用一个新技术时，众多的语法糖将最本质的东西隐藏时，这正是我最迷茫的时候，那么回归本源，才能找回属于我们的那份安全感。
-该文借鉴于，感谢作者。首先要明确几点：
-
-在JS中，万物皆对象。方法Function是对象，方法的原型Function.prototype是对象。因此它们都会由对象共同的特点。即：对象具有属性proto，可称为隐">
+<meta name="description" content="随着Web前端的日新月异，前端ers也不断追求着新技术，然而当我准备应用一个新技术时，众多的语法糖将最本质的东西隐藏时，这正是我最迷茫的时候，那么回归本源，才能找回属于我们的那份安全感。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="prototype与__proto__">
 <meta property="og:url" content="http://yoursite.com/2016/05/15/prototype-proto/index.html">
 <meta property="og:site_name">
-<meta property="og:description" content="随着Web前端的日新月异，前端ers也不断追求着新技术，然而当我准备应用一个新技术时，众多的语法糖将最本质的东西隐藏时，这正是我最迷茫的时候，那么回归本源，才能找回属于我们的那份安全感。
-该文借鉴于，感谢作者。首先要明确几点：
-
-在JS中，万物皆对象。方法Function是对象，方法的原型Function.prototype是对象。因此它们都会由对象共同的特点。即：对象具有属性proto，可称为隐">
+<meta property="og:description" content="随着Web前端的日新月异，前端ers也不断追求着新技术，然而当我准备应用一个新技术时，众多的语法糖将最本质的东西隐藏时，这正是我最迷茫的时候，那么回归本源，才能找回属于我们的那份安全感。">
 <meta property="og:image" content="http://7xslhu.com1.z0.glb.clouddn.com/prototype__proto__.png">
-<meta property="og:updated_time" content="2016-05-15T04:32:09.571Z">
+<meta property="og:updated_time" content="2016-05-15T14:36:23.666Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="prototype与__proto__">
-<meta name="twitter:description" content="随着Web前端的日新月异，前端ers也不断追求着新技术，然而当我准备应用一个新技术时，众多的语法糖将最本质的东西隐藏时，这正是我最迷茫的时候，那么回归本源，才能找回属于我们的那份安全感。
-该文借鉴于，感谢作者。首先要明确几点：
-
-在JS中，万物皆对象。方法Function是对象，方法的原型Function.prototype是对象。因此它们都会由对象共同的特点。即：对象具有属性proto，可称为隐">
+<meta name="twitter:description" content="随着Web前端的日新月异，前端ers也不断追求着新技术，然而当我准备应用一个新技术时，众多的语法糖将最本质的东西隐藏时，这正是我最迷茫的时候，那么回归本源，才能找回属于我们的那份安全感。">
 <meta name="twitter:image" content="http://7xslhu.com1.z0.glb.clouddn.com/prototype__proto__.png">
 
 
@@ -177,16 +168,6 @@
               <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
             
             首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-categories">
-          <a href="/categories" rel="section">
-            
-              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
-            
-            分类
           </a>
         </li>
       
@@ -288,7 +269,7 @@
       
 
       
-        <p>随着Web前端的日新月异，前端ers也不断追求着新技术，然而当我准备应用一个新技术时，众多的语法糖将最本质的东西隐藏时，这正是我最迷茫的时候，那么回归本源，才能找回属于我们的那份安全感。</p>
+        <p>随着Web前端的日新月异，前端ers也不断追求着新技术，然而当我准备应用一个新技术时，众多的语法糖将最本质的东西隐藏时，这正是我最迷茫的时候，那么回归本源，才能找回属于我们的那份安全感。<a id="more"></a></p>
 <h2 id="该文借鉴于，感谢作者。"><a href="#该文借鉴于，感谢作者。" class="headerlink" title="该文借鉴于，感谢作者。"></a><a href="https://www.zhihu.com/question/34183746/answer/58068402" target="_blank" rel="external">该文借鉴于</a>，感谢作者。</h2><p>首先要明确几点：</p>
 <ol>
 <li><p>在JS中，万物皆对象。方法<code>Function</code>是对象，方法的原型<code>Function.prototype</code>是对象。因此它们都会由对象共同的特点。<br>即：对象具有属性<strong>proto</strong>，可称为隐式原型，一个对象的隐式原型指向该对象的构造函数的原型，这也保证了实例能够访问在构造函数原型中定义的属性和方法。</p>

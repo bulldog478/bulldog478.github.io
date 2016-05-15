@@ -171,16 +171,6 @@
         </li>
       
         
-        <li class="menu-item menu-item-categories">
-          <a href="/categories" rel="section">
-            
-              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
-        
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
@@ -282,13 +272,12 @@
 
       
         
-          
-            <p>为了给Javascript引入<code>OO</code>的概念，各路大神也在不断努力，ES5的<code>Object.create</code>，到ES6和TypeScript的<code>Class</code>，可见引入OO是非常有必要的。那么我们就来看看Javscript中的OO。</p>
-<h2 id="ES5中的继承"><a href="#ES5中的继承" class="headerlink" title="ES5中的继承"></a>ES5中的继承</h2><p>ES5主要通过<code>Object.create</code>创建需要继承的原型对象的一个副本，并通过prototype指向该副本实现的。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Shape - superClass</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Shape</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.x = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">this</span>.y = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Shape.prototype.move = <span class="function"><span class="keyword">function</span>(<span class="params">x,y</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.x += x;</span><br><span class="line">    <span class="keyword">this</span>.y += y;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Shape moved."</span>)</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Rectangle - subClass</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Rectangle</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    Shape.apply(<span class="keyword">this</span>,<span class="built_in">arguments</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//通过Object.create可以以指定原型对象为副本创造</span></span><br><span class="line"><span class="comment">//另外一个原型对象</span></span><br><span class="line">Rectangle.prototype = <span class="built_in">Object</span>.create(Shape.prototype);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> rect = <span class="keyword">new</span> Rectangle();</span><br><span class="line"><span class="built_in">console</span>.log(Rectangle.prototype === Shape.prototype); <span class="comment">//false, Rectangle原型对象是Shape圆形对象的一个副本</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(rect <span class="keyword">instanceof</span> Rectangle); <span class="comment">//true</span></span><br><span class="line"><span class="built_in">console</span>.log(rect <span class="keyword">instanceof</span> Shape); <span class="comment">//true</span></span><br></pre></td></tr></table></figure></p>
-<p><img src="http://7xslhu.com1.z0.glb.clouddn.com/Object.create.png" alt=""></p>
-<h2 id="ES6的继承"><a href="#ES6的继承" class="headerlink" title="ES6的继承"></a>ES6的继承</h2><p>ES5所实现的集成主要依赖于<code>prototype</code>，通过prototype我们可以清晰的理解继承的原理，但上述写法还是过于啰嗦，不够OO，那么ES6的Class正是因此而来，我们重写上面的例子。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//ES6</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Shape</span></span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>()&#123;</span><br><span class="line">        <span class="keyword">this</span>.x = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">this</span>.y = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    move(x,y)&#123;</span><br><span class="line">        <span class="keyword">this</span>.x += x;</span><br><span class="line">        <span class="keyword">this</span>.y += y;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'Shape moved'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Rectangle</span> <span class="keyword">extends</span> <span class="title">Shape</span></span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>()&#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> rect = <span class="keyword">new</span> Rectangle();</span><br><span class="line">rect.move(<span class="number">2</span>,<span class="number">3</span>); <span class="comment">//Shape moved</span></span><br></pre></td></tr></table></figure></p>
-
-          
+          <p>为了给Javascript引入<code>OO</code>的概念，各路大神也在不断努力，ES5的<code>Object.create</code>，到ES6和TypeScript的<code>Class</code>，可见引入OO是非常有必要的。那么我们就来看看Javscript中的OO。
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/05/15/Let-ES2015-A/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -379,25 +368,12 @@
 
       
         
-          
-            <p>随着Web前端的日新月异，前端ers也不断追求着新技术，然而当我准备应用一个新技术时，众多的语法糖将最本质的东西隐藏时，这正是我最迷茫的时候，那么回归本源，才能找回属于我们的那份安全感。</p>
-<h2 id="该文借鉴于，感谢作者。"><a href="#该文借鉴于，感谢作者。" class="headerlink" title="该文借鉴于，感谢作者。"></a><a href="https://www.zhihu.com/question/34183746/answer/58068402" target="_blank" rel="external">该文借鉴于</a>，感谢作者。</h2><p>首先要明确几点：</p>
-<ol>
-<li><p>在JS中，万物皆对象。方法<code>Function</code>是对象，方法的原型<code>Function.prototype</code>是对象。因此它们都会由对象共同的特点。<br>即：对象具有属性<strong>proto</strong>，可称为隐式原型，一个对象的隐式原型指向该对象的构造函数的原型，这也保证了实例能够访问在构造函数原型中定义的属性和方法。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Animal</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Animal.prototype.speak = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"i am "</span> + <span class="keyword">this</span>.name);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> dogge = <span class="keyword">new</span> Animal(<span class="string">'dogge'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//实例对象的__proto__指向构造该实例的构造函数的原型。</span></span><br><span class="line"><span class="built_in">console</span>.log(dogge.__proto__ === Animal.prototype); <span class="comment">//true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//因此我们可以使用dogge调用speak方法。</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>方法(Function)<br>方法这个特殊的对象，除了和其他对象一样有上述<strong>proto</strong>属性之外，还有自己特有的属性—原型属性<code>prototype</code>，这个属性是一个指针，指向一个对象，这个对象的用途就是包含所有实例共享的属性和方法（我们把这个对象叫做原型对象）。原型对象也有一个属性，叫做constructor，这个属性包含一个指针，指向原构造函数。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Animal.prototype指向叫做原型对象，这个原型对象还包含了一个属性</span></span><br><span class="line"><span class="comment">//叫constructor，指向原构造函数</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> catte = <span class="keyword">new</span> Animal.prototype.constructor(<span class="string">'catte'</span>); </span><br><span class="line"></span><br><span class="line">catte.speak();  <span class="comment">//i am catte</span></span><br><span class="line"><span class="built_in">console</span>.log(Animal.prototype.constructor === Animal); <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>原型链<br>既然万物皆对象，那么原型对象Animal.prototype也有它所指向的原型对象。那么Animal是由哪个原型所创建的实例呢，而其实万物（对象）都来自<code>Function</code>。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(Animal.__proto__ === <span class="built_in">Function</span>.prototype); <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>继续~<br>那么Animal.prototype既然叫做原型<code>对象</code>，那么他自然也有<strong>proto</strong>属性，它也会指向构造它的构造函数指向的原型对象。而我们都是将一个字面量对象赋给一个原型对象，因此Animal.prototype的原型就是Object。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(Animal.prototype.__proto__ === <span class="built_in">Object</span>.prototype); <span class="comment">//true</span></span><br></pre></td></tr></table></figure></p>
-<p>继续~<br>那么Object是一个对象，那么它也来自<code>Function</code>。因此Object.<strong>proto</strong>也就指向了Function.prototype。而原型对象Object.prototype并不继续集成原型链上的其他属性和方法，因此Object.prototype.<strong>proto</strong>为null，即一个空指针。下面我们来画出整个原型链图。</p>
-<p><img src="http://7xslhu.com1.z0.glb.clouddn.com/prototype__proto__.png" alt=""></p>
-
-          
+          <p>随着Web前端的日新月异，前端ers也不断追求着新技术，然而当我准备应用一个新技术时，众多的语法糖将最本质的东西隐藏时，这正是我最迷茫的时候，那么回归本源，才能找回属于我们的那份安全感。
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/05/15/prototype-proto/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
